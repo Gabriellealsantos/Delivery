@@ -1,7 +1,10 @@
 package com.portproject.delivery.services;
 
+import com.portproject.delivery.dtos.OrderDTO;
 import com.portproject.delivery.dtos.ProductDTO;
+import com.portproject.delivery.entities.Order;
 import com.portproject.delivery.entities.Product;
+import com.portproject.delivery.repositories.OrderRepository;
 import com.portproject.delivery.repositories.ProductRepository;
 import com.portproject.delivery.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +15,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductService {
+public class OrderService {
 
     @Autowired
-    private ProductRepository productRepository;
+    private OrderRepository orderRepository;
 
     @Transactional(readOnly = true)
-    public List<ProductDTO> findAllByOrderByNameAsc() {
-        List<Product> list = productRepository.findAllByOrderByNameAsc();
+    public List<OrderDTO> findOrdersWithProducts() {
+        List<Order> list = orderRepository.findOrdersWithProducts();
 
         if (list.isEmpty()) {
-            throw new ResourceNotFoundException("Nenhum produto encontrado");
+            throw new ResourceNotFoundException("Nenhum pedido encontrado");
         }
 
-        return list.stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());
+        return list.stream().map(x -> new OrderDTO(x)).collect(Collectors.toList());
     }
 }
