@@ -1,31 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
 :root {
-  --pf-color-bg-primary: #000000;
-  --pf-color-bg-secondary: #FFFFFF;
-  --pf-color-bg-third: #191522;
-  --pf-color-bg-fourth: #121212;
-  --pf-color-bg-fifth: #32264f;
-  --pf-color-bg-sixth: #8257e6;
-
-
-  --pf-color-card-bg: #000000;
-  --pf-color-card-border: #FFFFFF;
-
-  --pf-color-btn-primary: #8257e6;
-  --pf-color-btn-inverse: #FFFFFF;
-
-  --pf-color-font-primary: #000000;
-  --pf-color-font-secondary: #FFFFFF;
-  --pf-color-font-third: #8257e6;
-  --pf-color-font-fourth: #9b7cff;
-  
-
+  --primary-color: #da5c5c;
+  --primary-hover-color: #a74b4b;
+  --dark-color: #263238;
+  --secondary-color: #9E9E9E;
+  --light-color: #F5F5F5;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Poppins", "Quicksand", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 a,
@@ -38,7 +25,7 @@ html,
 body {
   min-height: 100vh;
   /* Garante que o corpo da página ocupa pelo menos toda a altura da viewport */
-  background: linear-gradient(to right, var(--pf-color-bg-third) 40%, var(--pf-color-bg-fourth) 35%);
+  background: var(--light-color);
 }
 
 main {
