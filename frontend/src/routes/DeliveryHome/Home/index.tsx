@@ -1,5 +1,5 @@
-import main from '../../assets/main.svg';
-import Footer from '../Footer';
+import main from '../../../assets/main.svg';
+import Footer from '../../../components/Footer';
 import './styles.css';
 
 export default function Home() {
