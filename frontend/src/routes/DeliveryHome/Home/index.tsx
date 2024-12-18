@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import main from '../../../assets/main.svg';
 import Footer from '../../../components/Footer';
 import './styles.css';
@@ -16,9 +17,9 @@ export default function Home() {
                             levaremoss na sua porta
                         </h3>
 
-                        <a href="order" className='home-btn-order'>
+                        <Link to="/orders" className='home-btn-order'>
                             FAZER PEDIDO
-                        </a>
+                        </Link>
                     </div>
                     <div className='home-img'>
                         <img src={main} alt="main" />
