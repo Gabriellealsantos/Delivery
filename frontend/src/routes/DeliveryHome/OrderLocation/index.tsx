@@ -2,8 +2,9 @@
 import { useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import AsyncSelect from 'react-select/async';
-import { fetchLocalMapBox } from '../../../services/product-service';
+import { fetchLocalMapBox } from '../../../services/map-service';
 import './styles.css';
+import { OrcerLocationData } from '../../../models/OrderLocationData';
 
 const initialPosition = {
     lat: -12.7319202,
@@ -19,7 +20,11 @@ type Place = {
     };
 };
 
-export default function OrderLocation() {
+type Props = {
+    onChangeLocation: (location: OrcerLocationData) => void;
+}
+
+export default function OrderLocation({ onChangeLocation }: Props) {
     const [address, setAddress] = useState<Place>({
         label: '',
         value: '',
@@ -46,6 +51,11 @@ export default function OrderLocation() {
 
     const handleChangeSelect = (place: Place) => {
         setAddress(place);
+        onChangeLocation({
+            latitude: place.position.lat,
+            longitude: place.position.lng,
+            address: place.label!
+        });
     };
 
     return (
@@ -63,6 +73,7 @@ export default function OrderLocation() {
                 <MapContainer
                     center={address.position}
                     zoom={13}
+                    key={address.position.lat}
                     scrollWheelZoom={true}
                     style={{ height: '400px', width: '100%' }}
                 >

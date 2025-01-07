@@ -5,10 +5,12 @@ import { ProductDTO } from '../../../models/OrderDTO';
 import { fetchProduct } from '../../../services/product-service';
 import OrderLocation from '../OrderLocation';
 import './styles.css';
+import { OrcerLocationData } from '../../../models/OrderLocationData';
 
 export default function Orders() {
 
     const [products, setProducts] = useState<ProductDTO[]>([]);
+    const [orderLocation, setOrderLocation] = useState<OrcerLocationData>();
 
     useEffect(() => {
         fetchProduct()
@@ -20,7 +22,7 @@ export default function Orders() {
         <div className='orders-container'>
             <StepsHeader />
             <ProductList products={products} />
-            <OrderLocation />
+            <OrderLocation onChangeLocation={location => setOrderLocation(location)} />
         </div>
     );
 }
