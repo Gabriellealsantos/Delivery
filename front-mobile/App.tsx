@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { useFonts, OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import Routes from './src/Routes/Routes';
+import Routes from './src/routes/Routes';
 
 
 export default function App() {

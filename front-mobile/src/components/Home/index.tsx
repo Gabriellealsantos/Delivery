@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
-import { RootStackParamList } from '../types/RootStackParamLis';
+import { RootStackParamList } from '../../types/RootStackParamLis';
 import React from 'react';
 import Header from '../Header';
 
