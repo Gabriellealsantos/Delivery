@@ -89,6 +89,14 @@ public class Order {
         return products;
     }
 
+    public Double getTotal() {
+        double sum = 0.0;
+        for (Product product : products) {
+            sum += product.getPrice();
+        }
+        return sum;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
