@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import DeliveryHome from './routes/DeliveryHome/index.tsx'
 import Home from './routes/DeliveryHome/Home/index.tsx'
 import Orders from './routes/DeliveryHome/Orders/index.tsx'
+import { ToastContainer } from 'react-toastify';
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
@@ -14,5 +15,6 @@ createRoot(document.getElementById('root')!).render(
         <Route path="orders" element={<Orders />} />
       </Route>
     </Routes>
+    <ToastContainer />
   </BrowserRouter>
 )

@@ -1,5 +1,5 @@
-import './App.css'
 import DeliveryHome from './routes/DeliveryHome'
+import './App.css'
 
 function App() {
 

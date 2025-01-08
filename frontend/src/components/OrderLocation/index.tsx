@@ -2,9 +2,9 @@
 import { useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import AsyncSelect from 'react-select/async';
-import { fetchLocalMapBox } from '../../../services/map-service';
+import { fetchLocalMapBox } from '../../services/map-service';
+import { OrderLocationData } from '../../models/OrderLocationData';
 import './styles.css';
-import { OrcerLocationData } from '../../../models/OrderLocationData';
 
 const initialPosition = {
     lat: -12.7319202,
@@ -21,7 +21,7 @@ type Place = {
 };
 
 type Props = {
-    onChangeLocation: (location: OrcerLocationData) => void;
+    onChangeLocation: (location: OrderLocationData) => void;
 }
 
 export default function OrderLocation({ onChangeLocation }: Props) {
