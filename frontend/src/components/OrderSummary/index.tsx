@@ -1,11 +1,9 @@
 import './styles.css';
 
-
-
 type Props = {
     amount: number,
     totalPrice: string,
-    onSubmit: () => void
+    onSubmit: () => void,
 }
 
 export default function OrderSummary({ amount, totalPrice, onSubmit }: Props) {
@@ -19,13 +17,15 @@ export default function OrderSummary({ amount, totalPrice, onSubmit }: Props) {
                     </span>
                     <span className='order-summary-total'>
                         <strong>R$ {totalPrice}</strong>
-
                     </span>
                 </div>
                 <button 
-                className='order-summary-make-order'
-                onClick={onSubmit}
-                >FAZER PEDIDO</button>
+                    className='order-summary-make-order'
+                    onClick={onSubmit}
+                    disabled={false}
+                >
+                    FAZER PEDIDO
+                </button>
             </div>
         </div>
     );

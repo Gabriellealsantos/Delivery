@@ -21,8 +21,11 @@ export default function Orders() {
     const fetchData = () => {
         setIsLoading(true);
         fetchOrders()
-            .then(response => setOrders(response.data))
-            .catch(() => Alert.alert('Não há mais pedidos para serem entregues.'))
+            .then(response => setOrders(Array.isArray(response.data) ? response.data : []))
+            .catch(() => {
+                setOrders([]);
+                Alert.alert('Não há mais pedidos para serem entregues.');
+            })
             .finally(() => setIsLoading(false))
     }
 

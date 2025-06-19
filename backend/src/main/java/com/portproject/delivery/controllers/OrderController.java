@@ -22,7 +22,7 @@ public class OrderController {
         List<OrderDTO> list = orderService.findOrdersWithProducts();
         return ResponseEntity.ok().body(list);
     }
-
+    
     @PostMapping
     public ResponseEntity<OrderDTO> insert(@RequestBody OrderDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();

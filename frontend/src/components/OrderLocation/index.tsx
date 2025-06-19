@@ -21,7 +21,7 @@ type Place = {
 };
 
 type Props = {
-    onChangeLocation: (location: OrderLocationData) => void;
+    onChangeLocation: (location: OrderLocationData | undefined) => void;
 }
 
 export default function OrderLocation({ onChangeLocation }: Props) {
@@ -49,13 +49,22 @@ export default function OrderLocation({ onChangeLocation }: Props) {
         }
     };
 
-    const handleChangeSelect = (place: Place) => {
-        setAddress(place);
-        onChangeLocation({
-            latitude: place.position.lat,
-            longitude: place.position.lng,
-            address: place.label!
+    const handleChangeSelect = (place: Place | null) => {
+        setAddress(place ?? {
+            label: '',
+            value: '',
+            position: initialPosition
         });
+
+        if (place) {
+            onChangeLocation({
+                latitude: place.position.lat,
+                longitude: place.position.lng,
+                address: place.label!
+            });
+        } else {
+            onChangeLocation(undefined);
+        }
     };
 
     return (
@@ -67,7 +76,8 @@ export default function OrderLocation({ onChangeLocation }: Props) {
                         placeholder='Digite um endereço para entregar o pedido'
                         className='filter'
                         loadOptions={loadOptions}
-                        onChange={(value) => handleChangeSelect(value as Place)}
+                        onChange={handleChangeSelect}
+                        isClearable
                     />
                 </div>
                 <MapContainer

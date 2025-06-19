@@ -22,23 +22,32 @@ public class SecurityConfig {
     private Environment env;
 
     @Bean
+    public org.springframework.security.core.userdetails.UserDetailsService userDetailsService() {
+        return new org.springframework.security.provisioning.InMemoryUserDetailsManager();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // Configuração para ambientes de teste
-        if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
-            http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
-        }
+        boolean isTestProfile = Arrays.asList(env.getActiveProfiles()).contains("test");
 
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**").permitAll() // Libera o console do H2
-                        .anyRequest().permitAll())
-                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())); // Desabilita restrições de frame
+                .authorizeHttpRequests(auth -> {
+                    if (isTestProfile) {
+                        auth.requestMatchers("/h2-console/**").permitAll();
+                    }
+                    auth.anyRequest().permitAll();
+                });
+
+        if (isTestProfile) {
+            http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
+        }
 
         return http.build();
     }
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
