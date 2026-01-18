@@ -6,6 +6,8 @@ import com.portproject.delivery.repositories.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  * Testes de QUALIDADE para ProductController
- * Total: 3 testes de integração REST
+ * Inclui testes parametrizados com variação de volume
  */
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -41,18 +43,13 @@ class ProductControllerIT {
                 productRepository.deleteAll();
         }
 
-        @Test
-        @DisplayName("GET /products - Deve retornar 200 com lista de produtos")
-        void deveRetornar200_ComProdutos() throws Exception {
-                // Arrange
-                productRepository.save(new Product(null, "Pizza", 45.90, "Desc", "uri"));
-                productRepository.save(new Product(null, "Hamburguer", 35.00, "Desc", "uri"));
+        // ==================== TESTES BÁSICOS ====================
 
-                // Act & Assert
+        @Test
+        @DisplayName("GET /products - Deve retornar 404 quando não há produtos")
+        void deveRetornar404_QuandoNaoHaProdutos() throws Exception {
                 mockMvc.perform(get("/products"))
-                                .andExpect(status().isOk())
-                                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                                .andExpect(jsonPath("$", hasSize(2)));
+                                .andExpect(status().isNotFound());
         }
 
         @Test
@@ -71,11 +68,45 @@ class ProductControllerIT {
                                 .andExpect(jsonPath("$[2].name", is("Pizza")));
         }
 
-        @Test
-        @DisplayName("GET /products - Deve retornar 404 quando não há produtos")
-        void deveRetornar404_QuandoNaoHaProdutos() throws Exception {
+        // ==================== TESTES PARAMETRIZADOS (MENOR, MÉDIO, MAIOR)
+        // ====================
+
+        @ParameterizedTest(name = "Listagem com {0} produtos")
+        @ValueSource(ints = { 1, 10, 50 }) // MENOR, MÉDIO, MAIOR
+        @DisplayName("GET /products - Deve retornar corretamente com diferentes QUANTIDADES")
+        void deveRetornarCorretamente_ComDiferentesQuantidades(int qtdProdutos) throws Exception {
+                // Arrange - criar N produtos
+                for (int i = 1; i <= qtdProdutos; i++) {
+                        productRepository.save(new Product(null, "Produto" + String.format("%03d", i),
+                                        10.0 * i, "Descrição " + i, "uri" + i));
+                }
+
                 // Act & Assert
                 mockMvc.perform(get("/products"))
-                                .andExpect(status().isNotFound());
+                                .andExpect(status().isOk())
+                                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                                .andExpect(jsonPath("$", hasSize(qtdProdutos)));
+        }
+
+        @ParameterizedTest(name = "Ordenação com {0} produtos")
+        @ValueSource(ints = { 3, 15, 30 }) // MENOR, MÉDIO, MAIOR
+        @DisplayName("GET /products - Ordenação deve funcionar com diferentes QUANTIDADES")
+        void ordenacaoDeveFuncionar_ComDiferentesQuantidades(int qtdProdutos) throws Exception {
+                // Arrange - criar produtos com nomes em ordem inversa (Z, Y, X...)
+                for (int i = qtdProdutos; i >= 1; i--) {
+                        char letra = (char) ('A' + i - 1);
+                        productRepository.save(new Product(null, letra + "_Produto", 10.0 * i, "Desc", "uri"));
+                }
+
+                // Act & Assert - primeiro deve ser 'A_Produto', último deve ser a última letra
+                char primeiraLetra = 'A';
+                char ultimaLetra = (char) ('A' + qtdProdutos - 1);
+
+                mockMvc.perform(get("/products"))
+                                .andExpect(status().isOk())
+                                .andExpect(jsonPath("$", hasSize(qtdProdutos)))
+                                .andExpect(jsonPath("$[0].name", startsWith(String.valueOf(primeiraLetra))))
+                                .andExpect(jsonPath("$[" + (qtdProdutos - 1) + "].name",
+                                                startsWith(String.valueOf(ultimaLetra))));
         }
 }

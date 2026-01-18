@@ -1,0 +1,7241 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.portproject:delivery >----------------------
+[INFO] Building delivery 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ delivery ---
+[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ delivery ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ delivery ---
+[INFO] skip non existing resourceDirectory C:\projetos\Delivery\backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ delivery ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.2:test (default-test) @ delivery ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.portproject.delivery.controllers.OrderControllerIT
+08:14:10.645 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.portproject.delivery.controllers.OrderControllerIT]: OrderControllerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:14:10.926 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.portproject.delivery.DeliveryApplication for test class com.portproject.delivery.controllers.OrderControllerIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.0)
+
+2026-01-18T08:14:11.894-03:00  INFO 3592 --- [delivery] [           main] c.p.d.controllers.OrderControllerIT      : Starting OrderControllerIT using Java 21.0.6 with PID 3592 (started by gabri in C:\projetos\Delivery\backend)
+2026-01-18T08:14:11.895-03:00  INFO 3592 --- [delivery] [           main] c.p.d.controllers.OrderControllerIT      : The following 1 profile is active: "test"
+2026-01-18T08:14:13.406-03:00  INFO 3592 --- [delivery] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-18T08:14:13.578-03:00  INFO 3592 --- [delivery] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 145 ms. Found 2 JPA repository interfaces.
+2026-01-18T08:14:14.550-03:00  INFO 3592 --- [delivery] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-18T08:14:15.092-03:00  INFO 3592 --- [delivery] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-01-18T08:14:15.097-03:00  INFO 3592 --- [delivery] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-18T08:14:15.230-03:00  INFO 3592 --- [delivery] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-18T08:14:15.382-03:00  INFO 3592 --- [delivery] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.2.Final
+2026-01-18T08:14:15.469-03:00  INFO 3592 --- [delivery] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-18T08:14:16.107-03:00  INFO 3592 --- [delivery] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-18T08:14:16.201-03:00  WARN 3592 --- [delivery] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-18T08:14:16.231-03:00  INFO 3592 --- [delivery] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-18T08:14:18.208-03:00  INFO 3592 --- [delivery] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    drop table if exists tb_order cascade 
+Hibernate: 
+    drop table if exists tb_order_product cascade 
+Hibernate: 
+    drop table if exists tb_product cascade 
+Hibernate: 
+    create table tb_order (
+        latitude float(53),
+        longitude float(53),
+        status tinyint check (status between 0 and 1),
+        id bigint generated by default as identity,
+        moment timestamp(6) with time zone,
+        address varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table tb_order_product (
+        order_id bigint not null,
+        product_id bigint not null,
+        primary key (order_id, product_id)
+    )
+Hibernate: 
+    create table tb_product (
+        price float(53),
+        id bigint generated by default as identity,
+        description varchar(255),
+        image_uri varchar(255),
+        name varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    alter table if exists tb_order_product 
+       add constraint FKsu03ywlcvyqg5y78qey2q25lc 
+       foreign key (product_id) 
+       references tb_product
+Hibernate: 
+    alter table if exists tb_order_product 
+       add constraint FK40anaevs16kmc2tbh7wc511fq 
+       foreign key (order_id) 
+       references tb_order
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('Pizza Bacon', 49.9, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/pizza_bacon.jpg', 'Pizza de bacon com mussarela, orÚgano, molho especial e tempero da casa.')
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('Pizza Moda da Casa', 59.9, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/pizza_moda.jpg', 'Pizza Ó moda da casa, com molho especial e todos ingredientes bßsicos, e queijo Ó sua escolha.')
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('Pizza Portuguesa', 45.0, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/pizza_portuguesa.jpg', 'Pizza Portuguesa com molho especial, mussarela, presunto, ovos e especiarias.')
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('Risoto de Carne', 52.0, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/risoto_carne.jpg', 'Risoto de carne com especiarias e um delicioso molho de acompanhamento.')
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('Risoto Funghi', 59.95, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/risoto_funghi.jpg', 'Risoto Funghi feito com ingredientes finos e o toque especial do chef.')
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('MacarrÒo Espaguete', 35.9, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/macarrao_espaguete.jpg', 'MacarrÒo fresco espaguete com molho especial e tempero da casa.')
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('MacarrÒo Fusili', 38.0, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/macarrao_fusili.jpg', 'MacarrÒo fusili com toque do chef e especiarias.')
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('MacarrÒo Penne', 37.9, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/macarrao_penne.jpg', 'MacarrÒo penne fresco ao dente com tempero especial.')
+Hibernate: INSERT INTO tb_order (status, latitude, longitude, address, moment) VALUES (0, -23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T10:00:00Z')
+Hibernate: INSERT INTO tb_order (status, latitude, longitude, address, moment) VALUES (1, -22.946779, -43.217753, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T15:00:00Z')
+Hibernate: INSERT INTO tb_order (status, latitude, longitude, address, moment) VALUES (0, -25.439787, -49.237759, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T16:00:00Z')
+Hibernate: INSERT INTO tb_order (status, latitude, longitude, address, moment) VALUES (0, -23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T12:00:00Z')
+Hibernate: INSERT INTO tb_order (status, latitude, longitude, address, moment) VALUES (1, -23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T08:00:00Z')
+Hibernate: INSERT INTO tb_order (status, latitude, longitude, address, moment) VALUES (0, -23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T14:00:00Z')
+Hibernate: INSERT INTO tb_order (status, latitude, longitude, address, moment) VALUES (0, -23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T09:00:00Z')
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (1 , 1)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (1 , 4)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (2 , 2)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (2 , 5)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (2 , 8)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (3 , 3)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (3 , 4)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (4 , 2)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (4 , 6)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (5 , 4)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (5 , 6)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (6 , 5)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (6 , 1)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (7 , 7)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (7 , 5)
+2026-01-18T08:14:18.396-03:00  INFO 3592 --- [delivery] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-18T08:14:18.971-03:00  INFO 3592 --- [delivery] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-18T08:14:20.217-03:00  INFO 3592 --- [delivery] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-01-18T08:14:21.526-03:00  INFO 3592 --- [delivery] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2026-01-18T08:14:21.694-03:00  INFO 3592 --- [delivery] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-01-18T08:14:21.694-03:00  INFO 3592 --- [delivery] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-01-18T08:14:21.695-03:00  INFO 3592 --- [delivery] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-01-18T08:14:21.730-03:00  INFO 3592 --- [delivery] [           main] c.p.d.controllers.OrderControllerIT      : Started OrderControllerIT in 10.443 seconds (process running for 12.88)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\gabri\.m2\repository\net\bytebuddy\byte-buddy-agent\1.15.10\byte-buddy-agent-1.15.10.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0 
+    where
+        o1_0.id=?
+Hibernate: 
+    select
+        p1_0.order_id,
+        p1_1.id,
+        p1_1.description,
+        p1_1.image_uri,
+        p1_1.name,
+        p1_1.price 
+    from
+        tb_order_product p1_0 
+    join
+        tb_product p1_1 
+            on p1_1.id=p1_0.product_id 
+    where
+        p1_0.order_id=?
+Hibernate: 
+    update
+        tb_order 
+    set
+        address=?,
+        latitude=?,
+        longitude=?,
+        moment=?,
+        status=? 
+    where
+        id=?
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        distinct o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        p1_0.order_id,
+        p1_1.id,
+        p1_1.description,
+        p1_1.image_uri,
+        p1_1.name,
+        p1_1.price,
+        o1_0.status 
+    from
+        tb_order o1_0 
+    join
+        tb_order_product p1_0 
+            on o1_0.id=p1_0.order_id 
+    join
+        tb_product p1_1 
+            on p1_1.id=p1_0.product_id 
+    where
+        o1_0.status=0 
+    order by
+        o1_0.moment
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        distinct o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        p1_0.order_id,
+        p1_1.id,
+        p1_1.description,
+        p1_1.image_uri,
+        p1_1.name,
+        p1_1.price,
+        o1_0.status 
+    from
+        tb_order o1_0 
+    join
+        tb_order_product p1_0 
+            on o1_0.id=p1_0.order_id 
+    join
+        tb_product p1_1 
+            on p1_1.id=p1_0.product_id 
+    where
+        o1_0.status=0 
+    order by
+        o1_0.moment
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        distinct o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        p1_0.order_id,
+        p1_1.id,
+        p1_1.description,
+        p1_1.image_uri,
+        p1_1.name,
+        p1_1.price,
+        o1_0.status 
+    from
+        tb_order o1_0 
+    join
+        tb_order_product p1_0 
+            on o1_0.id=p1_0.order_id 
+    join
+        tb_product p1_1 
+            on p1_1.id=p1_0.product_id 
+    where
+        o1_0.status=0 
+    order by
+        o1_0.moment
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        distinct o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        p1_0.order_id,
+        p1_1.id,
+        p1_1.description,
+        p1_1.image_uri,
+        p1_1.name,
+        p1_1.price,
+        o1_0.status 
+    from
+        tb_order o1_0 
+    join
+        tb_order_product p1_0 
+            on o1_0.id=p1_0.order_id 
+    join
+        tb_product p1_1 
+            on p1_1.id=p1_0.product_id 
+    where
+        o1_0.status=0 
+    order by
+        o1_0.moment
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    where
+        p1_0.id=?
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        distinct o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        p1_0.order_id,
+        p1_1.id,
+        p1_1.description,
+        p1_1.image_uri,
+        p1_1.name,
+        p1_1.price,
+        o1_0.status 
+    from
+        tb_order o1_0 
+    join
+        tb_order_product p1_0 
+            on o1_0.id=p1_0.order_id 
+    join
+        tb_product p1_1 
+            on p1_1.id=p1_0.product_id 
+    where
+        o1_0.status=0 
+    order by
+        o1_0.moment
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        distinct o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        p1_0.order_id,
+        p1_1.id,
+        p1_1.description,
+        p1_1.image_uri,
+        p1_1.name,
+        p1_1.price,
+        o1_0.status 
+    from
+        tb_order o1_0 
+    join
+        tb_order_product p1_0 
+            on o1_0.id=p1_0.order_id 
+    join
+        tb_product p1_1 
+            on p1_1.id=p1_0.product_id 
+    where
+        o1_0.status=0 
+    order by
+        o1_0.moment
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        distinct o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        p1_0.order_id,
+        p1_1.id,
+        p1_1.description,
+        p1_1.image_uri,
+        p1_1.name,
+        p1_1.price,
+        o1_0.status 
+    from
+        tb_order o1_0 
+    join
+        tb_order_product p1_0 
+            on o1_0.id=p1_0.order_id 
+    join
+        tb_product p1_1 
+            on p1_1.id=p1_0.product_id 
+    where
+        o1_0.status=0 
+    order by
+        o1_0.moment
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        distinct o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        p1_0.order_id,
+        p1_1.id,
+        p1_1.description,
+        p1_1.image_uri,
+        p1_1.name,
+        p1_1.price,
+        o1_0.status 
+    from
+        tb_order o1_0 
+    join
+        tb_order_product p1_0 
+            on o1_0.id=p1_0.order_id 
+    join
+        tb_product p1_1 
+            on p1_1.id=p1_0.product_id 
+    where
+        o1_0.status=0 
+    order by
+        o1_0.moment
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.29 s -- in com.portproject.delivery.controllers.OrderControllerIT
+[INFO] Running com.portproject.delivery.controllers.ProductControllerIT
+2026-01-18T08:14:24.523-03:00  INFO 3592 --- [delivery] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.portproject.delivery.controllers.ProductControllerIT]: ProductControllerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-01-18T08:14:24.528-03:00  INFO 3592 --- [delivery] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.portproject.delivery.DeliveryApplication for test class com.portproject.delivery.controllers.ProductControllerIT
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    delete 
+    from
+        tb_order_product 
+    where
+        order_id=?
+Hibernate: 
+    delete 
+    from
+        tb_order 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    order by
+        p1_0.name
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    order by
+        p1_0.name
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    order by
+        p1_0.name
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    order by
+        p1_0.name
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    order by
+        p1_0.name
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    order by
+        p1_0.name
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    order by
+        p1_0.name
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        o1_0.status 
+    from
+        tb_order o1_0
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        tb_product 
+    where
+        id=?
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    order by
+        p1_0.name
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.416 s -- in com.portproject.delivery.controllers.ProductControllerIT
+[INFO] Running com.portproject.delivery.entities.OrderTest
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.114 s -- in com.portproject.delivery.entities.OrderTest
+[INFO] Running com.portproject.delivery.entities.ProductTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in com.portproject.delivery.entities.ProductTest
+[INFO] Running com.portproject.delivery.repositories.OrderRepositoryIT
+2026-01-18T08:14:25.063-03:00  INFO 3592 --- [delivery] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.portproject.delivery.repositories.OrderRepositoryIT]: OrderRepositoryIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-01-18T08:14:25.163-03:00  INFO 3592 --- [delivery] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.portproject.delivery.DeliveryApplication for test class com.portproject.delivery.repositories.OrderRepositoryIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.0)
+
+2026-01-18T08:14:25.224-03:00  INFO 3592 --- [delivery] [           main] c.p.d.repositories.OrderRepositoryIT     : Starting OrderRepositoryIT using Java 21.0.6 with PID 3592 (started by gabri in C:\projetos\Delivery\backend)
+2026-01-18T08:14:25.225-03:00  INFO 3592 --- [delivery] [           main] c.p.d.repositories.OrderRepositoryIT     : The following 1 profile is active: "test"
+2026-01-18T08:14:25.630-03:00  INFO 3592 --- [delivery] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-18T08:14:25.678-03:00  INFO 3592 --- [delivery] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 2 JPA repository interfaces.
+2026-01-18T08:14:25.722-03:00  INFO 3592 --- [delivery] [           main] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
+2026-01-18T08:14:25.773-03:00  INFO 3592 --- [delivery] [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:08738c73-7683-4784-898a-996c97607e3d;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2026-01-18T08:14:25.838-03:00  INFO 3592 --- [delivery] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-18T08:14:25.867-03:00  INFO 3592 --- [delivery] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-18T08:14:25.906-03:00  INFO 3592 --- [delivery] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-18T08:14:25.909-03:00  WARN 3592 --- [delivery] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-18T08:14:25.910-03:00  INFO 3592 --- [delivery] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactory$EmbeddedDataSourceProxy@167eab4']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-18T08:14:26.018-03:00  INFO 3592 --- [delivery] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    drop table if exists tb_order cascade 
+Hibernate: 
+    drop table if exists tb_order_product cascade 
+Hibernate: 
+    drop table if exists tb_product cascade 
+Hibernate: 
+    create table tb_order (
+        latitude float(53),
+        longitude float(53),
+        status tinyint check (status between 0 and 1),
+        id bigint generated by default as identity,
+        moment timestamp(6) with time zone,
+        address varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table tb_order_product (
+        order_id bigint not null,
+        product_id bigint not null,
+        primary key (order_id, product_id)
+    )
+Hibernate: 
+    create table tb_product (
+        price float(53),
+        id bigint generated by default as identity,
+        description varchar(255),
+        image_uri varchar(255),
+        name varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    alter table if exists tb_order_product 
+       add constraint FKsu03ywlcvyqg5y78qey2q25lc 
+       foreign key (product_id) 
+       references tb_product
+Hibernate: 
+    alter table if exists tb_order_product 
+       add constraint FK40anaevs16kmc2tbh7wc511fq 
+       foreign key (order_id) 
+       references tb_order
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('Pizza Bacon', 49.9, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/pizza_bacon.jpg', 'Pizza de bacon com mussarela, orÚgano, molho especial e tempero da casa.')
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('Pizza Moda da Casa', 59.9, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/pizza_moda.jpg', 'Pizza Ó moda da casa, com molho especial e todos ingredientes bßsicos, e queijo Ó sua escolha.')
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('Pizza Portuguesa', 45.0, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/pizza_portuguesa.jpg', 'Pizza Portuguesa com molho especial, mussarela, presunto, ovos e especiarias.')
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('Risoto de Carne', 52.0, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/risoto_carne.jpg', 'Risoto de carne com especiarias e um delicioso molho de acompanhamento.')
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('Risoto Funghi', 59.95, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/risoto_funghi.jpg', 'Risoto Funghi feito com ingredientes finos e o toque especial do chef.')
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('MacarrÒo Espaguete', 35.9, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/macarrao_espaguete.jpg', 'MacarrÒo fresco espaguete com molho especial e tempero da casa.')
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('MacarrÒo Fusili', 38.0, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/macarrao_fusili.jpg', 'MacarrÒo fusili com toque do chef e especiarias.')
+Hibernate: INSERT INTO tb_product (name, price, image_Uri, description) VALUES ('MacarrÒo Penne', 37.9, 'https://raw.githubusercontent.com/devsuperior/sds2/master/assets/macarrao_penne.jpg', 'MacarrÒo penne fresco ao dente com tempero especial.')
+Hibernate: INSERT INTO tb_order (status, latitude, longitude, address, moment) VALUES (0, -23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T10:00:00Z')
+Hibernate: INSERT INTO tb_order (status, latitude, longitude, address, moment) VALUES (1, -22.946779, -43.217753, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T15:00:00Z')
+Hibernate: INSERT INTO tb_order (status, latitude, longitude, address, moment) VALUES (0, -25.439787, -49.237759, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T16:00:00Z')
+Hibernate: INSERT INTO tb_order (status, latitude, longitude, address, moment) VALUES (0, -23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T12:00:00Z')
+Hibernate: INSERT INTO tb_order (status, latitude, longitude, address, moment) VALUES (1, -23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T08:00:00Z')
+Hibernate: INSERT INTO tb_order (status, latitude, longitude, address, moment) VALUES (0, -23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T14:00:00Z')
+Hibernate: INSERT INTO tb_order (status, latitude, longitude, address, moment) VALUES (0, -23.561680, -46.656139, 'Avenida Paulista, 1500', TIMESTAMP WITH TIME ZONE '2021-01-01T09:00:00Z')
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (1 , 1)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (1 , 4)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (2 , 2)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (2 , 5)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (2 , 8)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (3 , 3)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (3 , 4)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (4 , 2)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (4 , 6)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (5 , 4)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (5 , 6)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (6 , 5)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (6 , 1)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (7 , 7)
+Hibernate: INSERT INTO tb_order_product (order_id, product_id) VALUES (7 , 5)
+2026-01-18T08:14:26.033-03:00  INFO 3592 --- [delivery] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-18T08:14:26.151-03:00  INFO 3592 --- [delivery] [           main] c.p.d.repositories.OrderRepositoryIT     : Started OrderRepositoryIT in 0.984 seconds (process running for 17.301)
+Hibernate: 
+    DELETE 
+    FROM
+        tb_order_product
+Hibernate: 
+    DELETE 
+    FROM
+        tb_order
+Hibernate: 
+    DELETE 
+    FROM
+        tb_product
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        distinct o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        p1_0.order_id,
+        p1_1.id,
+        p1_1.description,
+        p1_1.image_uri,
+        p1_1.name,
+        p1_1.price,
+        o1_0.status 
+    from
+        tb_order o1_0 
+    join
+        tb_order_product p1_0 
+            on o1_0.id=p1_0.order_id 
+    join
+        tb_product p1_1 
+            on p1_1.id=p1_0.product_id 
+    where
+        o1_0.status=0 
+    order by
+        o1_0.moment
+Hibernate: 
+    DELETE 
+    FROM
+        tb_order_product
+Hibernate: 
+    DELETE 
+    FROM
+        tb_order
+Hibernate: 
+    DELETE 
+    FROM
+        tb_product
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order
+        (address, latitude, longitude, moment, status, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        tb_order_product
+        (order_id, product_id) 
+    values
+        (?, ?)
+Hibernate: 
+    select
+        distinct o1_0.id,
+        o1_0.address,
+        o1_0.latitude,
+        o1_0.longitude,
+        o1_0.moment,
+        p1_0.order_id,
+        p1_1.id,
+        p1_1.description,
+        p1_1.image_uri,
+        p1_1.name,
+        p1_1.price,
+        o1_0.status 
+    from
+        tb_order o1_0 
+    join
+        tb_order_product p1_0 
+            on o1_0.id=p1_0.order_id 
+    join
+        tb_product p1_1 
+            on p1_1.id=p1_0.product_id 
+    where
+        o1_0.status=0 
+    order by
+        o1_0.moment
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.325 s -- in com.portproject.delivery.repositories.OrderRepositoryIT
+[INFO] Running com.portproject.delivery.repositories.ProductRepositoryIT
+2026-01-18T08:14:26.389-03:00  INFO 3592 --- [delivery] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.portproject.delivery.repositories.ProductRepositoryIT]: ProductRepositoryIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-01-18T08:14:26.410-03:00  INFO 3592 --- [delivery] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.portproject.delivery.DeliveryApplication for test class com.portproject.delivery.repositories.ProductRepositoryIT
+Hibernate: 
+    DELETE 
+    FROM
+        tb_order_product
+Hibernate: 
+    DELETE 
+    FROM
+        tb_order
+Hibernate: 
+    DELETE 
+    FROM
+        tb_product
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        tb_product
+        (description, image_uri, name, price, id) 
+    values
+        (?, ?, ?, ?, default)
+Hibernate: 
+    select
+        p1_0.id,
+        p1_0.description,
+        p1_0.image_uri,
+        p1_0.name,
+        p1_0.price 
+    from
+        tb_product p1_0 
+    order by
+        p1_0.name
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.041 s -- in com.portproject.delivery.repositories.ProductRepositoryIT
+[INFO] Running com.portproject.delivery.services.OrderServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.112 s -- in com.portproject.delivery.services.OrderServiceTest
+[INFO] Running com.portproject.delivery.services.ProductServiceTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s -- in com.portproject.delivery.services.ProductServiceTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 45, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  22.756 s
+[INFO] Finished at: 2026-01-18T08:14:27-03:00
+[INFO] ------------------------------------------------------------------------
