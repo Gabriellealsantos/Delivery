@@ -38,36 +38,69 @@ class ProductServiceTest {
 
     @BeforeEach
     void setUp() {
-        agua = new Product(1L, "Água Mineral", 5.00, "500ml", "uri1");
+        System.out.println("\n========================================");
+        System.out.println("SETUP: Preparando dados para o teste");
+        System.out.println("========================================");
+
+        agua = new Product(1L, "Agua Mineral", 5.00, "500ml", "uri1");
+        System.out.println("  - Produto criado: Agua Mineral (R$ 5.00)");
+
         hamburguer = new Product(2L, "Hamburguer", 35.00, "Artesanal", "uri2");
+        System.out.println("  - Produto criado: Hamburguer (R$ 35.00)");
+
         pizza = new Product(3L, "Pizza", 45.90, "Margherita", "uri3");
+        System.out.println("  - Produto criado: Pizza (R$ 45.90)");
+        System.out.println("----------------------------------------\n");
     }
 
     @Test
     @DisplayName("REGRA: Produtos devem vir ORDENADOS por nome (A-Z)")
     void deveRetornarProdutosOrdenadosPorNome() {
+        System.out.println("TESTE: Produtos devem vir ORDENADOS por nome (A-Z)");
+        System.out.println("----------------------------------------");
+
         // Arrange
+        System.out.println("[ARRANGE] Configurando mock para retornar produtos ordenados...");
         when(productRepository.findAllByOrderByNameAsc())
                 .thenReturn(Arrays.asList(agua, hamburguer, pizza));
+        System.out.println("  - Mock retornara: [Agua Mineral, Hamburguer, Pizza]");
 
         // Act
+        System.out.println("[ACT] Chamando productService.findAllByOrderByNameAsc()...");
         List<ProductDTO> resultado = productService.findAllByOrderByNameAsc();
+        System.out.println("  - Quantidade retornada: " + resultado.size() + " produtos");
+        System.out.println("  - Ordem recebida:");
+        for (int i = 0; i < resultado.size(); i++) {
+            System.out.println("    " + (i + 1) + ". " + resultado.get(i).getName());
+        }
 
         // Assert
+        System.out.println("[ASSERT] Verificando ordenacao A-Z...");
         assertEquals(3, resultado.size());
-        assertEquals("Água Mineral", resultado.get(0).getName());
+        assertEquals("Agua Mineral", resultado.get(0).getName());
         assertEquals("Hamburguer", resultado.get(1).getName());
         assertEquals("Pizza", resultado.get(2).getName());
+        System.out.println("  - SUCESSO: Produtos ordenados corretamente A-Z");
+        System.out.println("========================================\n");
     }
 
     @Test
-    @DisplayName("Deve lançar EXCEÇÃO quando não há produtos cadastrados")
+    @DisplayName("Deve lancar EXCECAO quando nao ha produtos cadastrados")
     void deveLancarExcecao_QuandoNaoHaProdutos() {
+        System.out.println("TESTE: Deve lancar EXCECAO quando nao ha produtos cadastrados");
+        System.out.println("----------------------------------------");
+
         // Arrange
+        System.out.println("[ARRANGE] Configurando mock para retornar lista vazia...");
         when(productRepository.findAllByOrderByNameAsc()).thenReturn(Collections.emptyList());
+        System.out.println("  - Mock retornara: []");
 
         // Act & Assert
-        assertThrows(ResourceNotFoundException.class,
+        System.out.println("[ACT/ASSERT] Chamando findAllByOrderByNameAsc e esperando excecao...");
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
                 () -> productService.findAllByOrderByNameAsc());
+        System.out.println("  - SUCESSO: Excecao ResourceNotFoundException lancada");
+        System.out.println("  - Mensagem: " + exception.getMessage());
+        System.out.println("========================================\n");
     }
 }
