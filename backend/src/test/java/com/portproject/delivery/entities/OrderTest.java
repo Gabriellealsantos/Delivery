@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Testes de QUALIDADE para Order
  * Inclui testes parametrizados com variação de volume (menor, médio, maior)
  */
-class OrderTest {
+public class OrderTest {
 
     private Order order;
 

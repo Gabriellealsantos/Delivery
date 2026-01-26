@@ -30,7 +30,7 @@ import static org.mockito.Mockito.*;
  * Total: 6 testes focados em regras de negócio críticas
  */
 @ExtendWith(MockitoExtension.class)
-class OrderServiceTest {
+public class OrderServiceTest {
 
     @Mock
     private OrderRepository orderRepository;

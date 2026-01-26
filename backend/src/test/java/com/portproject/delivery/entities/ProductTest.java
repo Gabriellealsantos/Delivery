@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Testes de QUALIDADE para Product
  * Total: 2 testes focados em validações
  */
-class ProductTest {
+public class ProductTest {
 
     @Test
     @DisplayName("ATENCAO: Produto ACEITA preco negativo (falta validacao!)")

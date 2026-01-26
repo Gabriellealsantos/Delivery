@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
  * Total: 2 testes focados em regras de negócio
  */
 @ExtendWith(MockitoExtension.class)
-class ProductServiceTest {
+public class ProductServiceTest {
 
     @Mock
     private ProductRepository productRepository;
